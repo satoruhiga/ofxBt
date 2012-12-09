@@ -35,6 +35,18 @@ public:
 	inline btRigidBody* operator *() const { return body; }
 	inline btRigidBody* get() const { return body; }
 	
+	inline Rigid& setMass(float mass)
+	{
+		btVector3 localInertia;
+		body->setMassProps(mass, localInertia);
+		return *this;
+	}
+	
+	inline float getMass()
+	{
+		return 1. / body->getInvMass();
+	}
+	
 	inline Rigid& setProperty(float rest, float frict, float lin_damping, float ang_damping)
 	{
 		setRestitution(rest);
@@ -90,7 +102,9 @@ public:
 		
 		btConvexInternalShape* s = dynamic_cast<btConvexInternalShape*>(shape);
 		if (s)
+		{
 			return toOF(s->getImplicitShapeDimensions());
+		}
 		else
 			ofLogWarning("ofxBt::getSize", "unimplemented shape type");
 		
@@ -144,6 +158,7 @@ public:
 	inline Rigid& setKinematic()
 	{
 		body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+		return *this;
 	}
 	
 	inline bool isKinematic() const

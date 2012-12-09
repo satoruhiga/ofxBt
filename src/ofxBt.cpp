@@ -60,15 +60,15 @@ public:
 		
 		ofNoFill();
 		
-		glColor4f (color.getX(), color.getY(), color.getZ(), btScalar(1.0f));
+		glColor4f(color.getX(), color.getY(), color.getZ(), btScalar(1.0f));
 		
 		ofMatrix4x4 m;
-		transform.getOpenGLMatrix(m.getPtr());
+		m.glTranslate(toOF(transform.getOrigin()));
 		
 		glPushMatrix();
 		glMultMatrixf(m.getPtr());
 		billboard();
-		ofCircle(0, 0, radius * 10);
+		ofCircle(0, 0, radius);
 		glPopMatrix();
 		
 		ofPopStyle();
