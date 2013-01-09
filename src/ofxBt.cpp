@@ -219,6 +219,7 @@ btRigidBody* World::createRigidBody(btCollisionShape* shape, float mass, const o
 	
 	btVector3 inertia(0, 0, 0);
 	shape->calculateLocalInertia(mass, inertia);
+	shape->setMargin(4);
 	
 	btRigidBody::btRigidBodyConstructionInfo info(mass, ms, shape, inertia);
 	btRigidBody* rigid = new btRigidBody(info);
