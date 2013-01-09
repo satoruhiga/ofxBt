@@ -57,46 +57,47 @@ void World::draw()
 	m_dynamicsWorld->debugDrawWorld();
 }
 
-btRigidBody* World::addBox(const ofVec3f& size, const ofVec3f& pos, const ofVec3f& rot, float mass)
+btRigidBody* World::addBox(const ofVec3f& size, const ofVec3f& pos, const ofVec3f& rot)
 {
 	assert(inited);
 	
 	btCollisionShape *shape = new btBoxShape(toBt(size * 0.5));
-	return createRigidBody(shape, mass, pos, rot);
+	return setupRigidBody(shape, pos, rot);
 }
 
-btRigidBody* World::addSphere(const float size, const ofVec3f& pos, const ofVec3f& rot, float mass)
+btRigidBody* World::addSphere(const float size, const ofVec3f& pos, const ofVec3f& rot)
 {
 	assert(inited);
 	
 	btCollisionShape *shape = new btSphereShape(size);
-	return createRigidBody(shape, mass, pos, rot);
+	return setupRigidBody(shape, pos, rot);
 }
 
-btRigidBody* World::addCylinder(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot, float mass)
+btRigidBody* World::addCylinder(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btCylinderShape(btVector3(radius, height, radius));
-	return createRigidBody(shape, mass, pos, rot);
+	return setupRigidBody(shape, pos, rot);
 }
 
-btRigidBody* World::addCapsule(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot, float mass)
+btRigidBody* World::addCapsule(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btCapsuleShape(radius, height);
-	return createRigidBody(shape, mass, pos, rot);
+	return setupRigidBody(shape, pos, rot);
 }
 
-btRigidBody* World::addCone(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot, float mass)
+btRigidBody* World::addCone(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btConeShape(radius, height);
-	return createRigidBody(shape, mass, pos, rot);
+	return setupRigidBody(shape, pos, rot);
 }
 
-btRigidBody* World::addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot, float mass)
+btRigidBody* World::addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot)
 {
 	assert(inited);
 	
 	btCollisionShape *shape = new btStaticPlaneShape(toBt(up), 1);
-	return createRigidBody(shape, mass, pos, rot);
+	ofxBt::Rigid rigid = setupRigidBody(shape, pos, rot, 0);
+	return rigid.get();
 }
 
 vector<btRigidBody*> World::addWorldBox(const ofVec3f &leftTopFar, const ofVec3f& rightBottomNear)
@@ -129,7 +130,7 @@ void World::setGravity(ofVec3f gravity)
 	m_dynamicsWorld->setGravity(toBt(gravity));
 }
 
-btRigidBody* World::createRigidBody(btCollisionShape* shape, float mass, const ofVec3f& pos, const ofVec3f& rot)
+btRigidBody* World::setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, const ofVec3f& rot, float mass)
 {
 	btTransform t(btQuaternion(rot.x * DEG_TO_RAD, rot.y * DEG_TO_RAD, rot.z * DEG_TO_RAD), toBt(pos));
 	btDefaultMotionState* ms = new btDefaultMotionState(t);
@@ -180,4 +181,9 @@ btCollisionConfiguration* World::createCollisionConfiguration()
 btDiscreteDynamicsWorld* World::createDynamicsWorld()
 {
 	return new btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collisionConfiguration);
+}
+
+btDiscreteDynamicsWorld* World::getDynamicsWorld()
+{
+	return (btDiscreteDynamicsWorld*)m_dynamicsWorld;
 }

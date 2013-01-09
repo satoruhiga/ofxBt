@@ -8,20 +8,20 @@ class Render : public btIDebugDraw
 {
 public:
 	
-	Render() : m_debugMode(false) {}
+	Render() : m_debugMode(DBG_DrawWireframe) {}
 	
-	void drawLine(const btVector3& from, const btVector3& to,
+	inline void drawLine(const btVector3& from, const btVector3& to,
 				  const btVector3& fromColor, const btVector3& toColor)
 	{
 		glBegin(GL_LINES);
-		glColor3f(fromColor.getX(), fromColor.getY(), fromColor.getZ());
-		glVertex3d(from.getX(), from.getY(), from.getZ());
-		glColor3f(toColor.getX(), toColor.getY(), toColor.getZ());
-		glVertex3d(to.getX(), to.getY(), to.getZ());
+		glColor3fv(fromColor.m_floats);
+		glVertex3fv(from.m_floats);
+		glColor3fv(toColor.m_floats);
+		glVertex3fv(to.m_floats);
 		glEnd();
 	}
 	
-	void drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
+	inline void drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
 	{
 		drawLine(from, to, color, color);
 	}
@@ -62,7 +62,7 @@ public:
 		
 		ofNoFill();
 		
-		glColor4f(color.getX(), color.getY(), color.getZ(), btScalar(1.0f));
+		glColor3fv(color.m_floats);
 		
 		ofMatrix4x4 m;
 		m.glTranslate(toOF(transform.getOrigin()));
@@ -78,7 +78,11 @@ public:
 	
 	void drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color) {}
 	
-	void draw3dText(const btVector3& location,const char* textString) {}
+	void draw3dText(const btVector3& location,const char* textString)
+	{
+		ofDrawBitmapString(textString, toOF(location));
+	}
+	
 	void reportErrorWarning(const char* warningString)
 	{
 		ofLogError("ofxBt") << warningString;

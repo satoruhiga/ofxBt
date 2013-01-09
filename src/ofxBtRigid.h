@@ -6,7 +6,8 @@
 
 #include "ofxBtHelper.h"
 
-namespace ofxBt {
+namespace ofxBt
+{
 	class Rigid;
 }
 
@@ -35,7 +36,7 @@ public:
 	
 	inline operator bool() const { return body != NULL; }
 	
-	inline btRigidBody* operator *() const { return body; }
+	inline operator btRigidBody*() const { return body; }
 	inline btRigidBody* get() const { return body; }
 	
 	inline Rigid& setMass(float mass)
