@@ -15,6 +15,7 @@
 		609F17B5169D55FA00F04D59 /* ofxBtWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 609F17B2169D55FA00F04D59 /* ofxBtWorld.cpp */; };
 		609F17B8169D56E600F04D59 /* ofxBtRigid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 609F17B6169D56E600F04D59 /* ofxBtRigid.cpp */; };
 		609F17BC169D856200F04D59 /* ofxBtSoft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 609F17BA169D856100F04D59 /* ofxBtSoft.cpp */; };
+		609F17C4169EE3FA00F04D59 /* ofxBtCollisionObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 609F17C2169EE3F900F04D59 /* ofxBtCollisionObject.cpp */; };
 		60EF04931513F09100FC5D12 /* ofxBt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60EF03B41513F09000FC5D12 /* ofxBt.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -264,6 +265,8 @@
 		609F17B9169D57D100F04D59 /* ofxBtRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtRender.h; sourceTree = "<group>"; };
 		609F17BA169D856100F04D59 /* ofxBtSoft.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtSoft.cpp; sourceTree = "<group>"; };
 		609F17BB169D856100F04D59 /* ofxBtSoft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtSoft.h; sourceTree = "<group>"; };
+		609F17C2169EE3F900F04D59 /* ofxBtCollisionObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtCollisionObject.cpp; sourceTree = "<group>"; };
+		609F17C3169EE3FA00F04D59 /* ofxBtCollisionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtCollisionObject.h; sourceTree = "<group>"; };
 		60EF03B41513F09000FC5D12 /* ofxBt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBt.cpp; sourceTree = "<group>"; };
 		60EF03B51513F09000FC5D12 /* ofxBt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBt.h; sourceTree = "<group>"; };
 		60EF03B61513F09000FC5D12 /* ofxBtHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtHelper.h; sourceTree = "<group>"; };
@@ -672,6 +675,8 @@
 		60EF03B31513F09000FC5D12 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				609F17C2169EE3F900F04D59 /* ofxBtCollisionObject.cpp */,
+				609F17C3169EE3FA00F04D59 /* ofxBtCollisionObject.h */,
 				609F17BA169D856100F04D59 /* ofxBtSoft.cpp */,
 				609F17BB169D856100F04D59 /* ofxBtSoft.h */,
 				609F17B6169D56E600F04D59 /* ofxBtRigid.cpp */,
@@ -863,6 +868,7 @@
 				609F17B5169D55FA00F04D59 /* ofxBtWorld.cpp in Sources */,
 				609F17B8169D56E600F04D59 /* ofxBtRigid.cpp in Sources */,
 				609F17BC169D856200F04D59 /* ofxBtSoft.cpp in Sources */,
+				609F17C4169EE3FA00F04D59 /* ofxBtCollisionObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

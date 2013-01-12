@@ -8,7 +8,17 @@ class Render : public btIDebugDraw
 {
 public:
 	
-	Render() : m_debugMode(DBG_DrawWireframe) {}
+	Render(float world_scale) : m_debugMode(DBG_DrawWireframe), world_scale(world_scale) {}
+	
+	void drawTransform(const btTransform& transform, btScalar orthoLen)
+	{
+		orthoLen *= 0.05 * world_scale;
+		
+		btVector3 start = transform.getOrigin();
+		drawLine(start, start+transform.getBasis() * btVector3(orthoLen, 0, 0), btVector3(1, 0, 0));
+		drawLine(start, start+transform.getBasis() * btVector3(0, orthoLen, 0), btVector3(0, 1, 0));
+		drawLine(start, start+transform.getBasis() * btVector3(0, 0, orthoLen), btVector3(0, 0, 1));
+	}
 	
 	inline void drawLine(const btVector3& from, const btVector3& to,
 				  const btVector3& fromColor, const btVector3& toColor)
@@ -28,32 +38,24 @@ public:
 	
 	inline void billboard()
 	{
-		GLfloat m[16];
-		glGetFloatv(GL_MODELVIEW_MATRIX, m);
+		ofMatrix4x4 m;
+		glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
 		
-		float inv_len;
+		const ofVec3f& s = m.getScale();
 		
-		m[8] = -m[12];
-		m[9] = -m[13];
-		m[10] = -m[14];
-		inv_len = 1. / sqrt(m[8] * m[8] + m[9] * m[9] + m[10] * m[10]);
-		m[8] *= inv_len;
-		m[9] *= inv_len;
-		m[10] *= inv_len;
+		m(0, 0) = s.x;
+		m(0, 1) = 0;
+		m(0, 2) = 0;
+
+		m(1, 0) = 0;
+		m(1, 1) = s.y;
+		m(1, 2) = 0;
+
+		m(2, 0) = 0;
+		m(2, 1) = 0;
+		m(2, 2) = s.z;
 		
-		m[0] = -m[14];
-		m[1] = 0.0;
-		m[2] = m[12];
-		inv_len = 1. / sqrt(m[0] * m[0] + m[1] * m[1] + m[2] * m[2]);
-		m[0] *= inv_len;
-		m[1] *= inv_len;
-		m[2] *= inv_len;
-		
-		m[4] = m[9] * m[2] - m[10] * m[1];
-		m[5] = m[10] * m[0] - m[8] * m[2];
-		m[6] = m[8] * m[1] - m[9] * m[0];
-		
-		glLoadMatrixf(m);
+		glLoadMatrixf(m.getPtr());
 	}
 	
 	void drawSphere(btScalar radius, const btTransform& transform, const btVector3& color)
@@ -64,13 +66,14 @@ public:
 		
 		glColor3fv(color.m_floats);
 		
-		ofMatrix4x4 m;
-		m.glTranslate(toOF(transform.getOrigin()));
+		const btVector3 &v = transform.getOrigin();
 		
 		glPushMatrix();
-		glMultMatrixf(m.getPtr());
+		glTranslatef(v.x(), v.y(), v.z());
+		
 		billboard();
 		ofCircle(0, 0, radius);
+
 		glPopMatrix();
 		
 		ofPopStyle();
@@ -94,6 +97,8 @@ public:
 protected:
 	
 	int m_debugMode;
+	float world_scale;
+	
 };
 	
 }

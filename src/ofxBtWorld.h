@@ -18,7 +18,8 @@ public:
 	
 	void clear();
 	
-	void setup(ofVec3f gravity = ofVec3f(0, 98, 0));
+	void setup(ofVec3f gravity = ofVec3f(0, 98, 0), float world_scale = 100);
+	
 	void update();
 	void draw();
 	
@@ -34,9 +35,9 @@ public:
 	
 	void setGravity(ofVec3f gravity);
 	
-protected:
+	inline float getWorldScale() { return world_scale; }
 	
-	bool inited;
+protected:
 	
 	btBroadphaseInterface *m_broadphase;
 	btCollisionConfiguration *m_collisionConfiguration;
@@ -49,11 +50,14 @@ protected:
 	btRigidBody* setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, const ofVec3f& rot, float mass = 1);
 	void disposeRigidBody(btRigidBody* body);
 	
-	//	class btThreadSupportInterface *m_threadSupportCollision;
-	//	class btThreadSupportInterface *m_threadSupportSolver;
-	
 	virtual btCollisionConfiguration* createCollisionConfiguration();
 	virtual btDiscreteDynamicsWorld* createDynamicsWorld();
 	
 	btDiscreteDynamicsWorld* getDynamicsWorld();
+	
+	inline float getMargin() { return 0.04 * world_scale; }
+	
+private:
+	
+	float world_scale;
 };
