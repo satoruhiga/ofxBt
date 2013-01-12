@@ -21,6 +21,11 @@ void SoftbodyWorld::setup(ofVec3f gravity, float world_scale)
 	setGravity(gravity);
 }
 
+void SoftbodyWorld::update()
+{
+	m_dynamicsWorld->stepSimulation(1.f / 60.f, 10, 1. / 240.);
+}
+
 btCollisionConfiguration* SoftbodyWorld::createCollisionConfiguration()
 {
 	return new btSoftBodyRigidBodyCollisionConfiguration;
@@ -83,15 +88,10 @@ btSoftBody* SoftbodyWorld::setupSoftBody(btSoftBody *body)
 	ofxBt::Soft o = body;
 	o.setMass(1);
 	o.setStiffness(0.9, 0.9, 0.9);
-	
+
 	o.setSolverIterations(4);
-	
-	o->m_cfg.kCHR = 1;
-	o->m_cfg.kKHR = 1;
-	o->m_cfg.kSHR = 1;
-	o->m_cfg.kAHR = 1;
-	
-	body->getCollisionShape()->setMargin(getMargin());
+
+	body->getCollisionShape()->setMargin(getMargin() * 2);
 	
 	return body;
 }

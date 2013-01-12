@@ -20,7 +20,7 @@ public:
 	
 	void setup(ofVec3f gravity = ofVec3f(0, 98, 0), float world_scale = 100);
 	
-	void update();
+	virtual void update();
 	void draw();
 	
 	btRigidBody* addBox(const ofVec3f& size, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));

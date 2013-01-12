@@ -22,8 +22,8 @@ void testApp::setup()
 	// world.addWorldBox(ofVec3f(-2000, 0, -2000), ofVec3f(2000, 2000, 2000));
 	
 	// sp = world.addSphere(50, ofVec3f(0, 300, 0));
-//	sp = world.addBox(ofVec3f(50, 50, 50), ofVec3f(0, 300, 0));
-//	sp.setMass(0.5);
+	sp = world.addBox(ofVec3f(100, 100, 100), ofVec3f(0, 1500, 0));
+	sp.setMass(0.5);
 	
 //	o = world.addRope(ofVec3f(0, 250, 0), ofVec3f(25, 300, 25), 10);
 //	o.setMass(7);
@@ -34,12 +34,11 @@ void testApp::setup()
 //	o = world.addPatch(ofVec3f(-200, 100, -200), ofVec3f(-200, 100, 200),
 //					   ofVec3f(200, 100, -200), ofVec3f(200, 100, 200), 10, 10);
 	
-	o = world.addEllipsoid(ofVec3f(0, 300, 0), ofVec3f(50, 50, 50), 100);
-	o.setMass(50, true);
-	o.setSolverIterations(4);
-	o.setPoseMatching(0.1);
-	o->generateBendingConstraints(2);
-	o->randomizeConstraints();
+	o = world.addEllipsoid(ofVec3f(0, 500, 0), ofVec3f(150, 150, 150), 300);
+	o.setMass(5, true);
+	o.setStiffness(1, 1, 0.1);
+	o.setRigidContactsHrdness(1);
+	
 }
 
 //--------------------------------------------------------------
@@ -55,6 +54,10 @@ void testApp::draw()
 {
 	cam.begin();
 
+	glTranslated(0, -200, 0);
+	
+	glRotatef(ofGetElapsedTimef() * 30, 0, 1, 0);
+	
 	world.draw();
 	
 	ofNoFill();

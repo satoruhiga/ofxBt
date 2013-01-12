@@ -88,7 +88,7 @@ btRigidBody* World::addCone(const float radius, const float height, const ofVec3
 
 btRigidBody* World::addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot)
 {
-	btCollisionShape *shape = new btStaticPlaneShape(toBt(up), 1);
+	btCollisionShape *shape = new btStaticPlaneShape(toBt(up), 0);
 	ofxBt::Rigid rigid = setupRigidBody(shape, pos, rot, 0);
 	return rigid;
 }

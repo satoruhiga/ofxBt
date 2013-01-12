@@ -17,6 +17,8 @@ class ofxBt::SoftbodyWorld : public ofxBt::World
 public:
 	
 	void setup(ofVec3f gravity = ofVec3f(0, -980, 0), float world_scale = 100);
+	virtual void update();
+	
 	void setGravity(ofVec3f gravity);
 	
 	btSoftBody* addRope(const ofVec3f& from, const ofVec3f& to, int res = 10);
