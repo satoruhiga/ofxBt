@@ -1,11 +1,11 @@
-#include "ofxBtSoftbodyWorld.h"
+#include "ofxBtSoftBodyWorld.h"
 
 #include "ofxBtHelper.h"
-#include "ofxBtSoft.h"
+#include "ofxBtSoftBody.h"
 
 using namespace ofxBt;
 
-void SoftbodyWorld::setup(ofVec3f gravity, float world_scale)
+void SoftBodyWorld::setup(ofVec3f gravity, float world_scale)
 {
 	World::setup(gravity, world_scale);
 
@@ -21,41 +21,41 @@ void SoftbodyWorld::setup(ofVec3f gravity, float world_scale)
 	setGravity(gravity);
 }
 
-void SoftbodyWorld::update()
+void SoftBodyWorld::update()
 {
 	m_dynamicsWorld->stepSimulation(1.f / 60.f, 10, 1. / 240.);
 }
 
-btCollisionConfiguration* SoftbodyWorld::createCollisionConfiguration()
+btCollisionConfiguration* SoftBodyWorld::createCollisionConfiguration()
 {
 	return new btSoftBodyRigidBodyCollisionConfiguration;
 }
 
-btDiscreteDynamicsWorld* SoftbodyWorld::createDynamicsWorld()
+btDiscreteDynamicsWorld* SoftBodyWorld::createDynamicsWorld()
 {
 	btSoftBodySolver *softBodySolver = 0;
 	
 	return new btSoftRigidDynamicsWorld(m_dispatcher, m_broadphase, m_solver, m_collisionConfiguration, softBodySolver);
 }
 
-void SoftbodyWorld::setGravity(ofVec3f gravity)
+void SoftBodyWorld::setGravity(ofVec3f gravity)
 {
 	World::setGravity(gravity);
 	m_softBodyWorldInfo.m_gravity = m_dynamicsWorld->getGravity();
 }
 
-btSoftRigidDynamicsWorld* SoftbodyWorld::getDynamicsWorld()
+btSoftRigidDynamicsWorld* SoftBodyWorld::getDynamicsWorld()
 {
 	return (btSoftRigidDynamicsWorld*)m_dynamicsWorld;
 }
 
-btSoftBody* SoftbodyWorld::addRope(const ofVec3f& from, const ofVec3f& to, int res)
+btSoftBody* SoftBodyWorld::addRope(const ofVec3f& from, const ofVec3f& to, int res)
 {
 	btSoftBody *o = btSoftBodyHelpers::CreateRope(m_softBodyWorldInfo, toBt(from), toBt(to), res, 0);
 	return setupSoftBody(o);
 }
 
-btSoftBody* SoftbodyWorld::addPatch(const ofVec3f& v0, const ofVec3f& v1, const ofVec3f& v2, const ofVec3f& v3, int resx, int resy)
+btSoftBody* SoftBodyWorld::addPatch(const ofVec3f& v0, const ofVec3f& v1, const ofVec3f& v2, const ofVec3f& v3, int resx, int resy)
 {
 	btSoftBody *o = btSoftBodyHelpers::CreatePatch(m_softBodyWorldInfo,
 												   toBt(v0),
@@ -68,24 +68,24 @@ btSoftBody* SoftbodyWorld::addPatch(const ofVec3f& v0, const ofVec3f& v1, const 
 	return setupSoftBody(o);
 }
 
-btSoftBody* SoftbodyWorld::addEllipsoid(const ofVec3f& center, const ofVec3f& radius, int res)
+btSoftBody* SoftBodyWorld::addEllipsoid(const ofVec3f& center, const ofVec3f& radius, int res)
 {
 	btSoftBody *o = btSoftBodyHelpers::CreateEllipsoid(m_softBodyWorldInfo,
 													   toBt(center), toBt(radius), res);
 	return setupSoftBody(o);
 }
 
-void SoftbodyWorld::removeSoftBody(btSoftBody *body)
+void SoftBodyWorld::removeSoftBody(btSoftBody *body)
 {
 	disposeSoftBody(body);
 }
 
-btSoftBody* SoftbodyWorld::setupSoftBody(btSoftBody *body)
+btSoftBody* SoftBodyWorld::setupSoftBody(btSoftBody *body)
 {
 	getDynamicsWorld()->addSoftBody(body);
 	softBodies.push_back(body);
 	
-	ofxBt::Soft o = body;
+	ofxBt::SoftBody o = body;
 	o.setMass(1);
 	o.setStiffness(0.9, 0.9, 0.9);
 
@@ -96,7 +96,7 @@ btSoftBody* SoftbodyWorld::setupSoftBody(btSoftBody *body)
 	return body;
 }
 
-void SoftbodyWorld::disposeSoftBody(btSoftBody *body)
+void SoftBodyWorld::disposeSoftBody(btSoftBody *body)
 {
 	getDynamicsWorld()->removeSoftBody(body);
 	softBodies.erase(remove(softBodies.begin(), softBodies.end(), body));

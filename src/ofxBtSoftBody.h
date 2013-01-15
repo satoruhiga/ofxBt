@@ -9,15 +9,15 @@
 
 namespace ofxBt
 {
-	class Soft;
+	class SoftBody;
 }
 
-class ofxBt::Soft : public ofxBt::CollisionObject
+class ofxBt::SoftBody : public ofxBt::CollisionObject
 {
 public:
 	
-	Soft() {}
-	Soft(btSoftBody *body) : ofxBt::CollisionObject(body) {}
+	SoftBody() {}
+	SoftBody(btSoftBody *body) : ofxBt::CollisionObject(body) {}
 	
 	inline operator btSoftBody*() const { return body(); }
 	inline btSoftBody* operator->() const { return body(); }

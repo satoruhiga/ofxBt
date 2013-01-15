@@ -23,7 +23,6 @@ public:
 	inline void activate()
 	{
 		object->activate(true);
-		return *this;
 	}
 	
 	//

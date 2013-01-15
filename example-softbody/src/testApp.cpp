@@ -2,11 +2,10 @@
 
 #include "ofxBt.h"
 
-ofxBt::SoftbodyWorld world;
+ofxBt::SoftBodyWorld world;
+ofxBt::SoftBody rope;
 
-ofxBt::Soft rope;
-
-ofxBt::Rigid box;
+ofxBt::RigidBody box;
 
 //--------------------------------------------------------------
 void testApp::setup()
@@ -29,7 +28,7 @@ void testApp::setup()
 	rope.attachRigidBodyAt(rope.getNumNode()-1, box);
 	rope.setStiffness(1, 1, 1);
 	
-	ofxBt::Soft o = world.addEllipsoid(ofVec3f(0, 800, 0), ofVec3f(150, 150, 150), 300);
+	ofxBt::SoftBody o = world.addEllipsoid(ofVec3f(0, 800, 0), ofVec3f(150, 150, 150), 300);
 	o.setMass(5, true);
 	o.setStiffness(1, 1, 0.1);
 	o.setRigidContactsHrdness(1);

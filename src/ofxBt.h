@@ -7,8 +7,8 @@
 #include "ofxBtWorld.h"
 #include "ofxBtRigid.h"
 
-#include "ofxBtSoftbodyWorld.h"
-#include "ofxBtSoft.h"
+#include "ofxBtSoftBodyWorld.h"
+#include "ofxBtSoftBody.h"
 
 
 

@@ -9,20 +9,20 @@
 
 namespace ofxBt
 {
-	class Rigid;
+	class RigidBody;
 }
 
-class ofxBt::Rigid : public ofxBt::CollisionObject
+class ofxBt::RigidBody : public ofxBt::CollisionObject
 {
 public:
 	
-	Rigid() {}
-	Rigid(btRigidBody *body) : CollisionObject(body) {}
+	RigidBody() {}
+	RigidBody(btRigidBody *body) : CollisionObject(body) {}
 	
 	inline operator btRigidBody*() const { return body(); }
 	inline btRigidBody* operator->() const { return body(); }
 	
-	inline Rigid& setMass(float mass)
+	inline RigidBody& setMass(float mass)
 	{
 		btVector3 inertia(0, 0, 0);
 		body()->getCollisionShape()->calculateLocalInertia(mass, inertia);
@@ -80,7 +80,7 @@ public:
 	
 	//
 	
-	inline Rigid& applyForce(const ofVec3f& force, const ofVec3f& pos = ofVec3f(0, 0, 0))
+	inline RigidBody& applyForce(const ofVec3f& force, const ofVec3f& pos = ofVec3f(0, 0, 0))
 	{
 		activate();
 		
@@ -88,7 +88,7 @@ public:
 		return *this;
 	}
 	
-	inline Rigid& applyCentralForce(const ofVec3f& force)
+	inline RigidBody& applyCentralForce(const ofVec3f& force)
 	{
 		activate();
 		
@@ -96,7 +96,7 @@ public:
 		return *this;
 	}
 	
-	inline Rigid& applyTorque(const ofVec3f& force)
+	inline RigidBody& applyTorque(const ofVec3f& force)
 	{
 		activate();
 		
