@@ -89,7 +89,7 @@ btRigidBody* World::addCone(const float radius, const float height, const ofVec3
 btRigidBody* World::addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btStaticPlaneShape(toBt(up), 0);
-	ofxBt::Rigid rigid = setupRigidBody(shape, pos, rot, 0);
+	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot, 0);
 	return rigid;
 }
 
@@ -130,11 +130,11 @@ btRigidBody* World::setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, 
 	shape->setMargin(0);
 	
 	btRigidBody::btRigidBodyConstructionInfo info(mass, ms, shape, inertia);
-	btRigidBody* rigid = new btRigidBody(info);
+	RigidBody rigid = new btRigidBody(info);
 	
 	assert(rigid);
 	
-	Rigid(rigid).setProperty(0.4, 0.75, 0.25, 0.25);
+	rigid.setProperty(0.4, 0.75, 0.25, 0.25);
 	
 	m_dynamicsWorld->addRigidBody(rigid);
 	rigidBodies.push_back(rigid);

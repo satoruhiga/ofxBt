@@ -9,10 +9,10 @@
 
 namespace ofxBt
 {
-	class SoftbodyWorld;
+	class SoftBodyWorld;
 };
 
-class ofxBt::SoftbodyWorld : public ofxBt::World
+class ofxBt::SoftBodyWorld : public ofxBt::World
 {
 public:
 	
