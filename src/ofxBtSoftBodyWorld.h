@@ -33,6 +33,7 @@ protected:
 	
 	vector<btSoftBody*> softBodies;
 	
+	btBroadphaseInterface* createBroadphase();
 	btCollisionConfiguration* createCollisionConfiguration();
 	btDiscreteDynamicsWorld* createDynamicsWorld();
 	

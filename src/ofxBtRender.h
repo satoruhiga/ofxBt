@@ -12,7 +12,7 @@ public:
 	
 	void drawTransform(const btTransform& transform, btScalar orthoLen)
 	{
-		orthoLen *= 0.05 * world_scale;
+		orthoLen = 0.05 * world_scale;
 		
 		btVector3 start = transform.getOrigin();
 		drawLine(start, start+transform.getBasis() * btVector3(orthoLen, 0, 0), btVector3(1, 0, 0));
