@@ -1,7 +1,7 @@
 #include "ofxBtWorld.h"
 
 #include "ofxBtRender.h"
-#include "ofxBtRigid.h"
+#include "ofxBtRigidBody.h"
 
 using namespace ofxBt;
 
@@ -18,16 +18,12 @@ void World::setup(ofVec3f gravity, float world_scale)
 {
 	this->world_scale = world_scale;
 	
-	btVector3 worldAabbMin(-100 * world_scale, -100 * world_scale, -100 * world_scale);
-	btVector3 worldAabbMax(100 * world_scale, 100 * world_scale, 100 * world_scale);
-	m_broadphase = new btAxisSweep3 (worldAabbMin, worldAabbMax);
-	
 	m_collisionConfiguration = createCollisionConfiguration();
 	m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
+	m_broadphase = createBroadphase();
 	m_solver = new btSequentialImpulseConstraintSolver;
 	
 	m_dynamicsWorld = createDynamicsWorld();
-	
 	m_dynamicsWorld->getDispatchInfo().m_enableSPU = true;
 	
 	setGravity(gravity);
@@ -161,6 +157,15 @@ void World::disposeRigidBody(btRigidBody* body)
 	rigidBodies.erase(remove(rigidBodies.begin(), rigidBodies.end(), body), rigidBodies.end());
 	
 	delete body;
+}
+
+btBroadphaseInterface* World::createBroadphase()
+{
+	// -100unit ~ +100unit
+	btVector3 min(-100 * getWorldScale(), -100 * getWorldScale(), -100 * getWorldScale());
+	btVector3 max(100 * getWorldScale(), 100 * getWorldScale(), 100 * getWorldScale());
+
+	return new btAxisSweep3(min, max);
 }
 
 btCollisionConfiguration* World::createCollisionConfiguration()

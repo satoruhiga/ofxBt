@@ -90,6 +90,18 @@ public:
 	{
 		return (object->getCollisionFlags() & btCollisionObject::CF_KINEMATIC_OBJECT);
 	}
+	
+	inline void setStatic(bool v)
+	{
+		if (v)
+		{
+			object->setCollisionFlags(object->getCollisionFlags() | btCollisionObject::CF_STATIC_OBJECT);
+		}
+		else
+		{
+			object->setCollisionFlags(object->getCollisionFlags() & ~btCollisionObject::CF_STATIC_OBJECT);
+		}
+	}
 
 	//
 	

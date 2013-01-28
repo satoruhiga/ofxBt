@@ -4,8 +4,8 @@
 
 ofxBt::World world;
 
-ofxBt::Rigid center_box;
-vector<ofxBt::Rigid> boxes;
+ofxBt::RigidBody center_box;
+vector<ofxBt::RigidBody> boxes;
 
 //--------------------------------------------------------------
 void testApp::setup()
@@ -19,11 +19,14 @@ void testApp::setup()
 
 	for (int i = 0; i < 100; i++)
 	{
-		ofxBt::Rigid o = world.addBox(ofVec3f(1, 1, 1), ofVec3f(ofRandom(-5, 5), i * 2, ofRandom(-5, 5)));
+		ofxBt::RigidBody o = world.addBox(ofVec3f(10, 10, 10), ofVec3f(ofRandom(-5, 5), i * 2, ofRandom(-5, 5)));
+		o.setMass(0.1);
 		boxes.push_back(o);
 	}
 
-	center_box = ofxBt::Rigid(world.addBox(ofVec3f(5, 5, 5), ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), 0));
+	center_box = world.addBox(ofVec3f(50, 50, 50), ofVec3f(0, 0, 0), ofVec3f(0, 0, 0));
+	center_box.setStatic(true);
+	center_box.setMass(0);
 
 	// world.addPlane(ofVec3f(0, 1, 0), ofVec3f(0, 0, 0));
 	// world.addWorldBox(ofVec3f(-50, -50, -50), ofVec3f(50, 50, 50));
@@ -36,8 +39,9 @@ void testApp::update()
 
 	float s = fabs(sin(ofGetElapsedTimef() * 3));
 	s = pow(s, 32);
-	s = s * 3 + 0.5;
+	s = s * 30 + 50;
 	center_box.setSize(ofVec3f(s, s, s));
+	center_box.applyForce(ofVec3f(10, 2, 3));
 
 	for (int i = 0; i < boxes.size(); i++)
 	{
@@ -49,7 +53,7 @@ void testApp::update()
 void testApp::draw()
 {
 	cam.begin();
-	glScalef(30, 30, 30);
+	
 	world.draw();
 
 	cam.end();

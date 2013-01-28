@@ -11,12 +11,12 @@
 		609F17AD169D402E00F04D59 /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 609F17A9169D402E00F04D59 /* libBulletDynamics.a */; };
 		609F17AE169D402E00F04D59 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 609F17AA169D402E00F04D59 /* libBulletSoftBody.a */; };
 		609F17AF169D402E00F04D59 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 609F17AB169D402E00F04D59 /* libLinearMath.a */; };
-		609F17B4169D55FA00F04D59 /* ofxBtSoftBodyWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 609F17B0169D55FA00F04D59 /* ofxBtSoftBodyWorld.cpp */; };
-		609F17B5169D55FA00F04D59 /* ofxBtWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 609F17B2169D55FA00F04D59 /* ofxBtWorld.cpp */; };
-		609F17B8169D56E600F04D59 /* ofxBtRigid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 609F17B6169D56E600F04D59 /* ofxBtRigid.cpp */; };
-		609F17BC169D856200F04D59 /* ofxBtSoftBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 609F17BA169D856100F04D59 /* ofxBtSoftBody.cpp */; };
-		609F17C4169EE3FA00F04D59 /* ofxBtCollisionObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 609F17C2169EE3F900F04D59 /* ofxBtCollisionObject.cpp */; };
-		60EF04931513F09100FC5D12 /* ofxBt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60EF03B41513F09000FC5D12 /* ofxBt.cpp */; };
+		60CCD32516A5798B002F0FA9 /* ofxBt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60CCD31716A5798B002F0FA9 /* ofxBt.cpp */; };
+		60CCD32616A5798B002F0FA9 /* ofxBtCollisionObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60CCD31916A5798B002F0FA9 /* ofxBtCollisionObject.cpp */; };
+		60CCD32716A5798B002F0FA9 /* ofxBtRigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60CCD31D16A5798B002F0FA9 /* ofxBtRigidBody.cpp */; };
+		60CCD32816A5798B002F0FA9 /* ofxBtSoftBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60CCD31F16A5798B002F0FA9 /* ofxBtSoftBody.cpp */; };
+		60CCD32916A5798B002F0FA9 /* ofxBtSoftBodyWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60CCD32116A5798B002F0FA9 /* ofxBtSoftBodyWorld.cpp */; };
+		60CCD32A16A5798B002F0FA9 /* ofxBtWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60CCD32316A5798B002F0FA9 /* ofxBtWorld.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -256,20 +256,20 @@
 		609F17A9169D402E00F04D59 /* libBulletDynamics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletDynamics.a; sourceTree = "<group>"; };
 		609F17AA169D402E00F04D59 /* libBulletSoftBody.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBulletSoftBody.a; sourceTree = "<group>"; };
 		609F17AB169D402E00F04D59 /* libLinearMath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLinearMath.a; sourceTree = "<group>"; };
-		609F17B0169D55FA00F04D59 /* ofxBtSoftBodyWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtSoftBodyWorld.cpp; sourceTree = "<group>"; };
-		609F17B1169D55FA00F04D59 /* ofxBtSoftBodyWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtSoftBodyWorld.h; sourceTree = "<group>"; };
-		609F17B2169D55FA00F04D59 /* ofxBtWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtWorld.cpp; sourceTree = "<group>"; };
-		609F17B3169D55FA00F04D59 /* ofxBtWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtWorld.h; sourceTree = "<group>"; };
-		609F17B6169D56E600F04D59 /* ofxBtRigid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtRigid.cpp; sourceTree = "<group>"; };
-		609F17B7169D56E600F04D59 /* ofxBtRigid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtRigid.h; sourceTree = "<group>"; };
-		609F17B9169D57D100F04D59 /* ofxBtRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtRender.h; sourceTree = "<group>"; };
-		609F17BA169D856100F04D59 /* ofxBtSoftBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtSoftBody.cpp; sourceTree = "<group>"; };
-		609F17BB169D856100F04D59 /* ofxBtSoftBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtSoftBody.h; sourceTree = "<group>"; };
-		609F17C2169EE3F900F04D59 /* ofxBtCollisionObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtCollisionObject.cpp; sourceTree = "<group>"; };
-		609F17C3169EE3FA00F04D59 /* ofxBtCollisionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtCollisionObject.h; sourceTree = "<group>"; };
-		60EF03B41513F09000FC5D12 /* ofxBt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBt.cpp; sourceTree = "<group>"; };
-		60EF03B51513F09000FC5D12 /* ofxBt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBt.h; sourceTree = "<group>"; };
-		60EF03B61513F09000FC5D12 /* ofxBtHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtHelper.h; sourceTree = "<group>"; };
+		60CCD31716A5798B002F0FA9 /* ofxBt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBt.cpp; sourceTree = "<group>"; };
+		60CCD31816A5798B002F0FA9 /* ofxBt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBt.h; sourceTree = "<group>"; };
+		60CCD31916A5798B002F0FA9 /* ofxBtCollisionObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtCollisionObject.cpp; sourceTree = "<group>"; };
+		60CCD31A16A5798B002F0FA9 /* ofxBtCollisionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtCollisionObject.h; sourceTree = "<group>"; };
+		60CCD31B16A5798B002F0FA9 /* ofxBtHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtHelper.h; sourceTree = "<group>"; };
+		60CCD31C16A5798B002F0FA9 /* ofxBtRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtRender.h; sourceTree = "<group>"; };
+		60CCD31D16A5798B002F0FA9 /* ofxBtRigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtRigidBody.cpp; sourceTree = "<group>"; };
+		60CCD31E16A5798B002F0FA9 /* ofxBtRigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtRigidBody.h; sourceTree = "<group>"; };
+		60CCD31F16A5798B002F0FA9 /* ofxBtSoftBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtSoftBody.cpp; sourceTree = "<group>"; };
+		60CCD32016A5798B002F0FA9 /* ofxBtSoftBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtSoftBody.h; sourceTree = "<group>"; };
+		60CCD32116A5798B002F0FA9 /* ofxBtSoftBodyWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtSoftBodyWorld.cpp; sourceTree = "<group>"; };
+		60CCD32216A5798B002F0FA9 /* ofxBtSoftBodyWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtSoftBodyWorld.h; sourceTree = "<group>"; };
+		60CCD32316A5798B002F0FA9 /* ofxBtWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBtWorld.cpp; sourceTree = "<group>"; };
+		60CCD32416A5798B002F0FA9 /* ofxBtWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBtWorld.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -662,35 +662,35 @@
 			path = osx;
 			sourceTree = "<group>";
 		};
+		60CCD31616A5798B002F0FA9 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				60CCD31716A5798B002F0FA9 /* ofxBt.cpp */,
+				60CCD31816A5798B002F0FA9 /* ofxBt.h */,
+				60CCD31916A5798B002F0FA9 /* ofxBtCollisionObject.cpp */,
+				60CCD31A16A5798B002F0FA9 /* ofxBtCollisionObject.h */,
+				60CCD31B16A5798B002F0FA9 /* ofxBtHelper.h */,
+				60CCD31C16A5798B002F0FA9 /* ofxBtRender.h */,
+				60CCD31D16A5798B002F0FA9 /* ofxBtRigidBody.cpp */,
+				60CCD31E16A5798B002F0FA9 /* ofxBtRigidBody.h */,
+				60CCD31F16A5798B002F0FA9 /* ofxBtSoftBody.cpp */,
+				60CCD32016A5798B002F0FA9 /* ofxBtSoftBody.h */,
+				60CCD32116A5798B002F0FA9 /* ofxBtSoftBodyWorld.cpp */,
+				60CCD32216A5798B002F0FA9 /* ofxBtSoftBodyWorld.h */,
+				60CCD32316A5798B002F0FA9 /* ofxBtWorld.cpp */,
+				60CCD32416A5798B002F0FA9 /* ofxBtWorld.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		60EF01BE1513F09000FC5D12 /* ofxBt */ = {
 			isa = PBXGroup;
 			children = (
+				60CCD31616A5798B002F0FA9 /* src */,
 				609F16DC169D402E00F04D59 /* libs */,
-				60EF03B31513F09000FC5D12 /* src */,
 			);
 			name = ofxBt;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		60EF03B31513F09000FC5D12 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				609F17C2169EE3F900F04D59 /* ofxBtCollisionObject.cpp */,
-				609F17C3169EE3FA00F04D59 /* ofxBtCollisionObject.h */,
-				609F17BA169D856100F04D59 /* ofxBtSoftBody.cpp */,
-				609F17BB169D856100F04D59 /* ofxBtSoftBody.h */,
-				609F17B6169D56E600F04D59 /* ofxBtRigid.cpp */,
-				609F17B7169D56E600F04D59 /* ofxBtRigid.h */,
-				609F17B0169D55FA00F04D59 /* ofxBtSoftBodyWorld.cpp */,
-				609F17B1169D55FA00F04D59 /* ofxBtSoftBodyWorld.h */,
-				609F17B2169D55FA00F04D59 /* ofxBtWorld.cpp */,
-				609F17B3169D55FA00F04D59 /* ofxBtWorld.h */,
-				60EF03B41513F09000FC5D12 /* ofxBt.cpp */,
-				60EF03B51513F09000FC5D12 /* ofxBt.h */,
-				609F17B9169D57D100F04D59 /* ofxBtRender.h */,
-				60EF03B61513F09000FC5D12 /* ofxBtHelper.h */,
-			);
-			path = src;
 			sourceTree = "<group>";
 		};
 		BB4B014C10F69532006C3DED /* addons */ = {
@@ -863,12 +863,12 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
-				60EF04931513F09100FC5D12 /* ofxBt.cpp in Sources */,
-				609F17B4169D55FA00F04D59 /* ofxBtSoftBodyWorld.cpp in Sources */,
-				609F17B5169D55FA00F04D59 /* ofxBtWorld.cpp in Sources */,
-				609F17B8169D56E600F04D59 /* ofxBtRigid.cpp in Sources */,
-				609F17BC169D856200F04D59 /* ofxBtSoftBody.cpp in Sources */,
-				609F17C4169EE3FA00F04D59 /* ofxBtCollisionObject.cpp in Sources */,
+				60CCD32516A5798B002F0FA9 /* ofxBt.cpp in Sources */,
+				60CCD32616A5798B002F0FA9 /* ofxBtCollisionObject.cpp in Sources */,
+				60CCD32716A5798B002F0FA9 /* ofxBtRigidBody.cpp in Sources */,
+				60CCD32816A5798B002F0FA9 /* ofxBtSoftBody.cpp in Sources */,
+				60CCD32916A5798B002F0FA9 /* ofxBtSoftBodyWorld.cpp in Sources */,
+				60CCD32A16A5798B002F0FA9 /* ofxBtWorld.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

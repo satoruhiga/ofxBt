@@ -5,7 +5,7 @@
 #include "ofxBtHelper.h"
 
 #include "ofxBtWorld.h"
-#include "ofxBtRigid.h"
+#include "ofxBtRigidBody.h"
 
 #include "ofxBtSoftBodyWorld.h"
 #include "ofxBtSoftBody.h"

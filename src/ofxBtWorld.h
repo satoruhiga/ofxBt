@@ -50,6 +50,7 @@ protected:
 	btRigidBody* setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, const ofVec3f& rot, float mass = 1);
 	void disposeRigidBody(btRigidBody* body);
 	
+	virtual btBroadphaseInterface* createBroadphase();
 	virtual btCollisionConfiguration* createCollisionConfiguration();
 	virtual btDiscreteDynamicsWorld* createDynamicsWorld();
 	

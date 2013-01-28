@@ -26,6 +26,11 @@ void SoftBodyWorld::update()
 	m_dynamicsWorld->stepSimulation(1.f / 60.f, 10, 1. / 240.);
 }
 
+btBroadphaseInterface* SoftBodyWorld::createBroadphase()
+{
+	return new btDbvtBroadphase();
+}
+
 btCollisionConfiguration* SoftBodyWorld::createCollisionConfiguration()
 {
 	return new btSoftBodyRigidBodyCollisionConfiguration;
