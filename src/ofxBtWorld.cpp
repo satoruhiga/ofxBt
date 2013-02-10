@@ -36,7 +36,7 @@ void World::clear()
 {
 	while (rigidBodies.size())
 	{
-		removeRegidBody(rigidBodies[0]);
+		disposeRigidBody(rigidBodies[0]);
 	}
 	
 	rigidBodies.clear();
@@ -91,14 +91,14 @@ btRigidBody* World::addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3
 
 btRigidBody* World::addMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot)
 {
-	btCollisionShape *shape = convertToCollisionShape(mesh, getWorldScale(), false);
+	btCollisionShape *shape = convertToCollisionShape(mesh, false, getMargin());
 	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot);
 	return rigid;
 }
 
 btRigidBody* World::addStaticMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot)
 {
-	btCollisionShape *shape = convertToCollisionShape(mesh, getWorldScale(), true);
+	btCollisionShape *shape = convertToCollisionShape(mesh, true, getMargin());
 	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot, 0);
 	return rigid;
 }
@@ -117,12 +117,6 @@ vector<btRigidBody*> World::addWorldBox(const ofVec3f &leftTopFar, const ofVec3f
 	result.push_back(addPlane(ofVec3f(0, 0, 1), ofVec3f(0, 0, leftTopFar.z)));
 	
 	return result;
-}
-
-void World::removeRegidBody(btRigidBody *body)
-{
-	assert(body);
-	disposeRigidBody(body);
 }
 
 void World::setGravity(ofVec3f gravity)

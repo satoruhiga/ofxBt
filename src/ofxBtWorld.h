@@ -16,12 +16,14 @@ public:
 	World();
 	~World();
 	
+	void setup(ofVec3f gravity = ofVec3f(0, 98, 0), float world_scale = 100);
+	virtual void update();
+	
+	void draw();
+	
 	void clear();
 	
-	void setup(ofVec3f gravity = ofVec3f(0, 98, 0), float world_scale = 100);
-	
-	virtual void update();
-	void draw();
+	void setGravity(ofVec3f gravity);
 	
 	btRigidBody* addBox(const ofVec3f& size, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
 	btRigidBody* addSphere(const float size, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
@@ -31,12 +33,10 @@ public:
 	btRigidBody* addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
 	btRigidBody* addMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
 	btRigidBody* addStaticMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
-
 	vector<btRigidBody*> addWorldBox(const ofVec3f &leftTopFar, const ofVec3f& rightBottomNear);
 	
-	void removeRegidBody(btRigidBody *body);
-	
-	void setGravity(ofVec3f gravity);
+	btRigidBody* setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, const ofVec3f& rot, float mass = 1);
+	void disposeRigidBody(btRigidBody* body);
 	
 	inline float getWorldScale() { return world_scale; }
 	
@@ -49,9 +49,6 @@ protected:
 	btDynamicsWorld *m_dynamicsWorld;
 	
 	vector<btRigidBody*> rigidBodies;
-	
-	btRigidBody* setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, const ofVec3f& rot, float mass = 1);
-	void disposeRigidBody(btRigidBody* body);
 	
 	virtual btBroadphaseInterface* createBroadphase();
 	virtual btCollisionConfiguration* createCollisionConfiguration();

@@ -26,6 +26,16 @@ void SoftBodyWorld::update()
 	m_dynamicsWorld->stepSimulation(1.f / 60.f, 10, 1. / 240.);
 }
 
+void SoftBodyWorld::clear()
+{
+	while (softBodies.size())
+	{
+		disposeSoftBody(softBodies[0]);
+	}
+	
+	softBodies.clear();
+}
+
 btBroadphaseInterface* SoftBodyWorld::createBroadphase()
 {
 	return new btDbvtBroadphase();
@@ -78,11 +88,6 @@ btSoftBody* SoftBodyWorld::addEllipsoid(const ofVec3f& center, const ofVec3f& ra
 	btSoftBody *o = btSoftBodyHelpers::CreateEllipsoid(m_softBodyWorldInfo,
 													   toBt(center), toBt(radius), res);
 	return setupSoftBody(o);
-}
-
-void SoftBodyWorld::removeSoftBody(btSoftBody *body)
-{
-	disposeSoftBody(body);
 }
 
 btSoftBody* SoftBodyWorld::setupSoftBody(btSoftBody *body)

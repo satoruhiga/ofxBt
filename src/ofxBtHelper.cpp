@@ -2,7 +2,7 @@
 
 #include "btShapeHull.h"
 
-btCollisionShape* ofxBt::convertToCollisionShape(const ofMesh &mesh, float scale, bool is_static_shape)
+btCollisionShape* ofxBt::convertToCollisionShape(const ofMesh &mesh, bool is_static_shape, float margin)
 {
 	const vector <ofIndexType> &indicies = mesh.getIndices();
 	const vector <ofVec3f> &verticies = mesh.getVertices();
@@ -21,14 +21,14 @@ btCollisionShape* ofxBt::convertToCollisionShape(const ofMesh &mesh, float scale
 			ofIndexType i1 = i + 1;
 			ofIndexType i2 = i + 2;
 			
-			trimesh->addTriangle(toBt(verticies[indicies[i0]] * scale), toBt(verticies[indicies[i1]] * scale), toBt(verticies[indicies[i2]] * scale));
+			trimesh->addTriangle(toBt(verticies[indicies[i0]]), toBt(verticies[indicies[i1]]), toBt(verticies[indicies[i2]]));
 		}
 		
 		if (!is_static_shape)
 		{
 			btConvexShape* convex = new btConvexTriangleMeshShape(trimesh);
 			btShapeHull* hull = new btShapeHull(convex);
-			hull->buildHull(convex->getMargin());
+			hull->buildHull(margin);
 			
 			btConvexHullShape* temp = new btConvexHullShape;
 			for( int i = 0; i < hull->numVertices(); i++ ){

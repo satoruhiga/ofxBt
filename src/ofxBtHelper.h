@@ -97,6 +97,6 @@ inline btTransform toBt(const ofMatrix4x4& o)
 namespace ofxBt
 {
 	
-	btCollisionShape* convertToCollisionShape(const ofMesh &mesh, float scale, bool is_static_shape = true);
+	btCollisionShape* convertToCollisionShape(const ofMesh &mesh, bool is_static_shape = true, float margin = 0.04);
 	
 }
