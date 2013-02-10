@@ -13,12 +13,19 @@ class ofxBt::World
 {
 public:
 	
+	struct CollisionEventArg
+	{
+		btRigidBody *rigid0;
+		btRigidBody *rigid1;
+	};
+	
+	ofEvent<CollisionEventArg> collisionEvent;
+	
 	World();
 	~World();
 	
 	void setup(ofVec3f gravity = ofVec3f(0, 98, 0), float world_scale = 100);
 	virtual void update();
-	
 	void draw();
 	
 	void clear();
@@ -39,6 +46,9 @@ public:
 	void disposeRigidBody(btRigidBody* body);
 	
 	inline float getWorldScale() { return world_scale; }
+	
+	static bool ContactProcessedCallback(btManifoldPoint& manifold, void* object0, void* object1);
+	static bool ContactAddedCallback(btManifoldPoint& cp,	const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1);
 	
 protected:
 	

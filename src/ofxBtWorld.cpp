@@ -5,6 +5,9 @@
 
 using namespace ofxBt;
 
+extern ContactProcessedCallback gContactProcessedCallback;
+static World *current_dynamics_world = NULL;
+
 World::World()
 {
 }
@@ -44,7 +47,11 @@ void World::clear()
 
 void World::update()
 {
+	current_dynamics_world = this;
+	gContactProcessedCallback = ContactProcessedCallback;
 	m_dynamicsWorld->stepSimulation(1.f / 60.f, 10);
+	
+	gContactProcessedCallback = NULL;
 }
 
 void World::draw()
@@ -189,4 +196,29 @@ btDiscreteDynamicsWorld* World::createDynamicsWorld()
 btDiscreteDynamicsWorld* World::getDynamicsWorld()
 {
 	return (btDiscreteDynamicsWorld*)m_dynamicsWorld;
+}
+
+bool World::ContactProcessedCallback(btManifoldPoint& manifold, void* object0, void* object1)
+{
+	// NOTICE: maybe this operation is not threadsafe
+	if (!current_dynamics_world) return NULL;
+	
+	if (manifold.getLifeTime() > 1)
+	{
+		btRigidBody *RB0 = btRigidBody::upcast((btCollisionObject*)object0);
+		btRigidBody *RB1 = btRigidBody::upcast((btCollisionObject*)object1);
+
+		if (RB0 && RB1)
+		{
+			CollisionEventArg e = {RB0, RB1};
+			ofNotifyEvent(current_dynamics_world->collisionEvent, e);
+		}
+	}
+	
+	return true;
+}
+
+bool World::ContactAddedCallback(btManifoldPoint& cp,	const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
+{
+	return true;
 }
