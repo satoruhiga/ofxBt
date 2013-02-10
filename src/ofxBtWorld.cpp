@@ -89,6 +89,20 @@ btRigidBody* World::addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3
 	return rigid;
 }
 
+btRigidBody* World::addMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot)
+{
+	btCollisionShape *shape = convertToCollisionShape(mesh, getWorldScale(), false);
+	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot);
+	return rigid;
+}
+
+btRigidBody* World::addStaticMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot)
+{
+	btCollisionShape *shape = convertToCollisionShape(mesh, getWorldScale(), true);
+	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot, 0);
+	return rigid;
+}
+
 vector<btRigidBody*> World::addWorldBox(const ofVec3f &leftTopFar, const ofVec3f& rightBottomNear)
 {
 	vector<btRigidBody*> result;

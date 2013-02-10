@@ -3,8 +3,6 @@
 #include "ofMain.h"
 #include <btBulletDynamicsCommon.h>
 
-namespace ofxBt {
-	
 template <typename T1, typename T2>
 const T2& toOF(const T1& o1, T2& o2);
 
@@ -96,4 +94,9 @@ inline btTransform toBt(const ofMatrix4x4& o)
 }
 
 
+namespace ofxBt
+{
+	
+	btCollisionShape* convertToCollisionShape(const ofMesh &mesh, float scale, bool is_static_shape = true);
+	
 }

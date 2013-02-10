@@ -29,6 +29,9 @@ public:
 	btRigidBody* addCapsule(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
 	btRigidBody* addCone(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
 	btRigidBody* addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+	btRigidBody* addMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+	btRigidBody* addStaticMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+
 	vector<btRigidBody*> addWorldBox(const ofVec3f &leftTopFar, const ofVec3f& rightBottomNear);
 	
 	void removeRegidBody(btRigidBody *body);
