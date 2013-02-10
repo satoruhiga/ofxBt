@@ -2,6 +2,7 @@
 
 #include "ofxBtRender.h"
 #include "ofxBtRigidBody.h"
+#include "ofxBtUserData.h"
 
 using namespace ofxBt;
 
@@ -48,7 +49,9 @@ void World::clear()
 void World::update()
 {
 	current_dynamics_world = this;
+	
 	gContactProcessedCallback = ContactProcessedCallback;
+	
 	m_dynamicsWorld->stepSimulation(1.f / 60.f, 10);
 	
 	gContactProcessedCallback = NULL;
@@ -143,6 +146,8 @@ btRigidBody* World::setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, 
 	btRigidBody::btRigidBodyConstructionInfo info(mass, ms, shape, inertia);
 	RigidBody rigid = new btRigidBody(info);
 	
+	rigid->setUserPointer(new UserData(rigid));
+	
 	assert(rigid);
 	
 	rigid.setProperty(0.4, 0.75, 0.25, 0.25);
@@ -155,6 +160,11 @@ btRigidBody* World::setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, 
 
 void World::disposeRigidBody(btRigidBody* body)
 {
+	if (UserData *user_data = (UserData*)body->getUserPointer())
+	{
+		delete user_data;
+	}
+	
 	if (body->getCollisionShape())
 	{
 		delete body->getCollisionShape();
@@ -203,7 +213,7 @@ bool World::ContactProcessedCallback(btManifoldPoint& manifold, void* object0, v
 	// NOTICE: maybe this operation is not threadsafe
 	if (!current_dynamics_world) return NULL;
 	
-	if (manifold.getLifeTime() > 1)
+	if (fabs(manifold.m_distance1) > current_dynamics_world->getMargin() * 0.5)
 	{
 		btRigidBody *RB0 = btRigidBody::upcast((btCollisionObject*)object0);
 		btRigidBody *RB1 = btRigidBody::upcast((btCollisionObject*)object1);
@@ -215,10 +225,5 @@ bool World::ContactProcessedCallback(btManifoldPoint& manifold, void* object0, v
 		}
 	}
 	
-	return true;
-}
-
-bool World::ContactAddedCallback(btManifoldPoint& cp,	const btCollisionObjectWrapper* colObj0Wrap,int partId0,int index0,const btCollisionObjectWrapper* colObj1Wrap,int partId1,int index1)
-{
 	return true;
 }

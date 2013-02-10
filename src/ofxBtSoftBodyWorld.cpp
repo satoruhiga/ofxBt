@@ -2,6 +2,7 @@
 
 #include "ofxBtHelper.h"
 #include "ofxBtSoftBody.h"
+#include "ofxBtUserData.h"
 
 using namespace ofxBt;
 
@@ -28,6 +29,8 @@ void SoftBodyWorld::update()
 
 void SoftBodyWorld::clear()
 {
+	World::clear();
+	
 	while (softBodies.size())
 	{
 		disposeSoftBody(softBodies[0]);
@@ -96,6 +99,8 @@ btSoftBody* SoftBodyWorld::setupSoftBody(btSoftBody *body)
 	softBodies.push_back(body);
 	
 	ofxBt::SoftBody o = body;
+	o->setUserPointer(new UserData(o));
+	
 	o.setMass(1);
 	o.setStiffness(0.9, 0.9, 0.9);
 
@@ -108,6 +113,11 @@ btSoftBody* SoftBodyWorld::setupSoftBody(btSoftBody *body)
 
 void SoftBodyWorld::disposeSoftBody(btSoftBody *body)
 {
+	if (UserData *user_data = (UserData*)body->getUserPointer())
+	{
+		delete user_data;
+	}
+	
 	getDynamicsWorld()->removeSoftBody(body);
 	softBodies.erase(remove(softBodies.begin(), softBodies.end(), body));
 	delete body;
