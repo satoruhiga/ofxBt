@@ -36,12 +36,12 @@ protected:
 	
 	btSoftBodyWorldInfo	m_softBodyWorldInfo;
 	
-	vector<btSoftBody*> softBodies;
-	
 	btBroadphaseInterface* createBroadphase();
 	btCollisionConfiguration* createCollisionConfiguration();
 	btDiscreteDynamicsWorld* createDynamicsWorld();
 	
 	btSoftRigidDynamicsWorld* getDynamicsWorld();
+	
+	vector<btSoftBody*> softBodies;
 	
 };
