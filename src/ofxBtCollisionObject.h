@@ -82,13 +82,13 @@ public:
 		if (v)
 		{
 			object->setCollisionFlags(object->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
-			object->setActivationState(DISABLE_DEACTIVATION);
 		}
 		else
 		{
 			object->setCollisionFlags(object->getCollisionFlags() & ~btCollisionObject::CF_KINEMATIC_OBJECT);
-			object->setActivationState(DISABLE_DEACTIVATION);
 		}
+		
+		setDisableDeactivation(v);
 	}
 	
 	inline bool isKinematic() const
@@ -106,6 +106,14 @@ public:
 		{
 			object->setCollisionFlags(object->getCollisionFlags() & ~btCollisionObject::CF_STATIC_OBJECT);
 		}
+	}
+	
+	inline void setDisableDeactivation(bool v)
+	{
+		if (v)
+			object->setActivationState(DISABLE_DEACTIVATION);
+		else
+			object->setActivationState(WANTS_DEACTIVATION);
 	}
 
 	//

@@ -39,7 +39,7 @@ void World::clear()
 {
 	while (rigidBodies.size())
 	{
-		disposeRigidBody(rigidBodies[0]);
+		removeRigidBody(rigidBodies[0]);
 	}
 	
 	rigidBodies.clear();
@@ -64,51 +64,51 @@ void World::draw()
 RigidBody World::addBox(const ofVec3f& size, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btBoxShape(toBt(size * 0.5));
-	return setupRigidBody(shape, pos, rot);
+	return addRigidBody(shape, pos, rot);
 }
 
 RigidBody World::addSphere(const float size, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btSphereShape(size);
-	return setupRigidBody(shape, pos, rot);
+	return addRigidBody(shape, pos, rot);
 }
 
 RigidBody World::addCylinder(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btCylinderShape(btVector3(radius, height, radius));
-	return setupRigidBody(shape, pos, rot);
+	return addRigidBody(shape, pos, rot);
 }
 
 RigidBody World::addCapsule(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btCapsuleShape(radius, height);
-	return setupRigidBody(shape, pos, rot);
+	return addRigidBody(shape, pos, rot);
 }
 
 RigidBody World::addCone(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btConeShape(radius, height);
-	return setupRigidBody(shape, pos, rot);
+	return addRigidBody(shape, pos, rot);
 }
 
 RigidBody World::addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btStaticPlaneShape(toBt(up), 0);
-	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot, 0);
+	ofxBt::RigidBody rigid = addRigidBody(shape, pos, rot, 0);
 	return rigid;
 }
 
 RigidBody World::addMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = convertToCollisionShape(mesh, false, getMargin());
-	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot);
+	ofxBt::RigidBody rigid = addRigidBody(shape, pos, rot);
 	return rigid;
 }
 
 RigidBody World::addStaticMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = convertToCollisionShape(mesh, true, getMargin());
-	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot, 0);
+	ofxBt::RigidBody rigid = addRigidBody(shape, pos, rot, 0);
 	return rigid;
 }
 
@@ -133,7 +133,7 @@ void World::setGravity(ofVec3f gravity)
 	m_dynamicsWorld->setGravity(toBt(gravity));
 }
 
-btRigidBody* World::setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, const ofVec3f& rot, float mass)
+btRigidBody* World::addRigidBody(btCollisionShape* shape, const ofVec3f& pos, const ofVec3f& rot, float mass)
 {
 	btTransform t(btQuaternion(rot.x * DEG_TO_RAD, rot.y * DEG_TO_RAD, rot.z * DEG_TO_RAD), toBt(pos));
 	btDefaultMotionState* ms = new btDefaultMotionState(t);
@@ -155,7 +155,7 @@ btRigidBody* World::setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, 
 	return rigid;
 }
 
-void World::disposeRigidBody(btRigidBody* body)
+void World::removeRigidBody(btRigidBody* body)
 {
 	if (ICollisionCallbackDispatcher *user_data = (ICollisionCallbackDispatcher*)body->getUserPointer())
 	{

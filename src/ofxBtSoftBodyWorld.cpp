@@ -32,7 +32,7 @@ void SoftBodyWorld::clear()
 	
 	while (softBodies.size())
 	{
-		disposeSoftBody(softBodies[0]);
+		removeSoftBody(softBodies[0]);
 	}
 	
 	softBodies.clear();
@@ -69,7 +69,7 @@ btSoftRigidDynamicsWorld* SoftBodyWorld::getDynamicsWorld()
 SoftBody SoftBodyWorld::addRope(const ofVec3f& from, const ofVec3f& to, int res)
 {
 	btSoftBody *o = btSoftBodyHelpers::CreateRope(m_softBodyWorldInfo, toBt(from), toBt(to), res, 0);
-	return setupSoftBody(o);
+	return addSoftBody(o);
 }
 
 SoftBody SoftBodyWorld::addPatch(const ofVec3f& v0, const ofVec3f& v1, const ofVec3f& v2, const ofVec3f& v3, int resx, int resy)
@@ -82,17 +82,17 @@ SoftBody SoftBodyWorld::addPatch(const ofVec3f& v0, const ofVec3f& v1, const ofV
 												   resx,
 												   resy,
 												   0, true);
-	return setupSoftBody(o);
+	return addSoftBody(o);
 }
 
 SoftBody SoftBodyWorld::addEllipsoid(const ofVec3f& center, const ofVec3f& radius, int res)
 {
 	btSoftBody *o = btSoftBodyHelpers::CreateEllipsoid(m_softBodyWorldInfo,
 													   toBt(center), toBt(radius), res);
-	return setupSoftBody(o);
+	return addSoftBody(o);
 }
 
-btSoftBody* SoftBodyWorld::setupSoftBody(btSoftBody *body)
+btSoftBody* SoftBodyWorld::addSoftBody(btSoftBody *body)
 {
 	getDynamicsWorld()->addSoftBody(body);
 	softBodies.push_back(body);
@@ -109,7 +109,7 @@ btSoftBody* SoftBodyWorld::setupSoftBody(btSoftBody *body)
 	return body;
 }
 
-void SoftBodyWorld::disposeSoftBody(btSoftBody *body)
+void SoftBodyWorld::removeSoftBody(btSoftBody *body)
 {
 	if (ICollisionCallbackDispatcher *user_data = (ICollisionCallbackDispatcher*)body->getUserPointer())
 	{

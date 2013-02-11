@@ -5,6 +5,7 @@
 #include "btBulletDynamicsCommon.h"
 
 #include "ofxBtRigidBody.h"
+#include "ofxBtJoint.h"
 
 namespace ofxBt
 {
@@ -51,8 +52,8 @@ public:
 	RigidBody addStaticMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
 	vector<RigidBody> addWorldBox(const ofVec3f &leftTopFar, const ofVec3f& rightBottomNear);
 	
-	btRigidBody* setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, const ofVec3f& rot, float mass = 1);
-	void disposeRigidBody(btRigidBody* body);
+	btRigidBody* addRigidBody(btCollisionShape* shape, const ofVec3f& pos, const ofVec3f& rot, float mass = 1);
+	void removeRigidBody(btRigidBody* body);
 	
 	//
 	
