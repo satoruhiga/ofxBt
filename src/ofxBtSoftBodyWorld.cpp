@@ -2,7 +2,6 @@
 
 #include "ofxBtHelper.h"
 #include "ofxBtSoftBody.h"
-#include "ofxBtUserData.h"
 
 using namespace ofxBt;
 
@@ -67,13 +66,13 @@ btSoftRigidDynamicsWorld* SoftBodyWorld::getDynamicsWorld()
 	return (btSoftRigidDynamicsWorld*)m_dynamicsWorld;
 }
 
-btSoftBody* SoftBodyWorld::addRope(const ofVec3f& from, const ofVec3f& to, int res)
+SoftBody SoftBodyWorld::addRope(const ofVec3f& from, const ofVec3f& to, int res)
 {
 	btSoftBody *o = btSoftBodyHelpers::CreateRope(m_softBodyWorldInfo, toBt(from), toBt(to), res, 0);
 	return setupSoftBody(o);
 }
 
-btSoftBody* SoftBodyWorld::addPatch(const ofVec3f& v0, const ofVec3f& v1, const ofVec3f& v2, const ofVec3f& v3, int resx, int resy)
+SoftBody SoftBodyWorld::addPatch(const ofVec3f& v0, const ofVec3f& v1, const ofVec3f& v2, const ofVec3f& v3, int resx, int resy)
 {
 	btSoftBody *o = btSoftBodyHelpers::CreatePatch(m_softBodyWorldInfo,
 												   toBt(v0),
@@ -86,7 +85,7 @@ btSoftBody* SoftBodyWorld::addPatch(const ofVec3f& v0, const ofVec3f& v1, const 
 	return setupSoftBody(o);
 }
 
-btSoftBody* SoftBodyWorld::addEllipsoid(const ofVec3f& center, const ofVec3f& radius, int res)
+SoftBody SoftBodyWorld::addEllipsoid(const ofVec3f& center, const ofVec3f& radius, int res)
 {
 	btSoftBody *o = btSoftBodyHelpers::CreateEllipsoid(m_softBodyWorldInfo,
 													   toBt(center), toBt(radius), res);
@@ -99,7 +98,6 @@ btSoftBody* SoftBodyWorld::setupSoftBody(btSoftBody *body)
 	softBodies.push_back(body);
 	
 	ofxBt::SoftBody o = body;
-	o->setUserPointer(new UserData(o));
 	
 	o.setMass(1);
 	o.setStiffness(0.9, 0.9, 0.9);
@@ -113,9 +111,10 @@ btSoftBody* SoftBodyWorld::setupSoftBody(btSoftBody *body)
 
 void SoftBodyWorld::disposeSoftBody(btSoftBody *body)
 {
-	if (UserData *user_data = (UserData*)body->getUserPointer())
+	if (ICollisionCallbackDispatcher *user_data = (ICollisionCallbackDispatcher*)body->getUserPointer())
 	{
 		delete user_data;
+		body->setUserPointer(NULL);
 	}
 	
 	getDynamicsWorld()->removeSoftBody(body);

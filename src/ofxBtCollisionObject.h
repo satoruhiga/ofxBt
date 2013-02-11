@@ -5,7 +5,12 @@
 namespace ofxBt
 {
 	class CollisionObject;
+	
+	struct ICollisionCallbackDispatcher;
+	template <typename Functor> struct CollisionCallbackDispatcher;
 }
+
+#pragma mark - CollisionObject
 
 class ofxBt::CollisionObject
 {
@@ -111,17 +116,19 @@ public:
 	}
 	
 	//
-	
-	inline void setUserData(void *ptr)
+
+	void setCollisionCallback(ICollisionCallbackDispatcher *callback_object)
 	{
-		object->setUserPointer(ptr);
+		object->setUserPointer(callback_object);
 	}
-	
-	inline void* getUserData()
+
+	template <typename Functor>
+	void setCollisionCallback(const Functor &functor)
 	{
-		return object->getUserPointer();
+		void *ptr = new ofxBt::CollisionCallbackDispatcher<Functor>(functor);
+		setCollisionCallback((ICollisionCallbackDispatcher*)ptr);
 	}
-	
+
 protected:
 	
 	btCollisionObject *object;
@@ -129,4 +136,21 @@ protected:
 	inline btCollisionShape* shape() { return object->getCollisionShape(); }
 	inline btCollisionShape* shape() const { return object->getCollisionShape(); }
 	
+};
+
+#pragma mark - CollisionCallbackDispatcher
+
+struct ofxBt::ICollisionCallbackDispatcher
+{
+	virtual ~ICollisionCallbackDispatcher() {}
+	virtual void operator()(btCollisionObject*) {}
+};
+
+template <typename Functor>
+struct ofxBt::CollisionCallbackDispatcher : public ofxBt::ICollisionCallbackDispatcher
+{
+	Functor functor;
+	
+	CollisionCallbackDispatcher(const Functor &functor) : functor(functor) {}
+	void operator()(btCollisionObject*) { functor(); }
 };

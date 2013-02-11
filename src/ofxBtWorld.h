@@ -4,6 +4,8 @@
 
 #include "btBulletDynamicsCommon.h"
 
+#include "ofxBtRigidBody.h"
+
 namespace ofxBt
 {
 	class World;
@@ -22,7 +24,7 @@ public:
 	ofEvent<CollisionEventArg> collisionEvent;
 	
 	World();
-	~World();
+	virtual ~World();
 	
 	void setup(ofVec3f gravity = ofVec3f(0, 98, 0), float world_scale = 100);
 	virtual void update();
@@ -32,15 +34,15 @@ public:
 	
 	void setGravity(ofVec3f gravity);
 	
-	btRigidBody* addBox(const ofVec3f& size, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
-	btRigidBody* addSphere(const float size, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
-	btRigidBody* addCylinder(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
-	btRigidBody* addCapsule(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
-	btRigidBody* addCone(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
-	btRigidBody* addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
-	btRigidBody* addMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
-	btRigidBody* addStaticMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
-	vector<btRigidBody*> addWorldBox(const ofVec3f &leftTopFar, const ofVec3f& rightBottomNear);
+	RigidBody addBox(const ofVec3f& size, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+	RigidBody addSphere(const float size, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+	RigidBody addCylinder(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+	RigidBody addCapsule(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+	RigidBody addCone(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+	RigidBody addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+	RigidBody addMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+	RigidBody addStaticMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot = ofVec3f(0, 0, 0));
+	vector<RigidBody> addWorldBox(const ofVec3f &leftTopFar, const ofVec3f& rightBottomNear);
 	
 	btRigidBody* setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, const ofVec3f& rot, float mass = 1);
 	void disposeRigidBody(btRigidBody* body);

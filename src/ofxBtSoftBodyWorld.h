@@ -7,6 +7,8 @@
 #include "BulletSoftBody/btSoftRigidDynamicsWorld.h"
 #include "BulletSoftBody/btSoftBodyHelpers.h"
 
+#include "ofxBtSoftBody.h"
+
 namespace ofxBt
 {
 	class SoftBodyWorld;
@@ -23,9 +25,9 @@ public:
 	
 	void setGravity(ofVec3f gravity);
 	
-	btSoftBody* addRope(const ofVec3f& from, const ofVec3f& to, int res = 10);
-	btSoftBody* addPatch(const ofVec3f& v0, const ofVec3f& v1, const ofVec3f& v2, const ofVec3f& v3, int resx = 10, int resy = 10);
-	btSoftBody* addEllipsoid(const ofVec3f& center, const ofVec3f& radius, int res = 10);
+	SoftBody addRope(const ofVec3f& from, const ofVec3f& to, int res = 10);
+	SoftBody addPatch(const ofVec3f& v0, const ofVec3f& v1, const ofVec3f& v2, const ofVec3f& v3, int resx = 10, int resy = 10);
+	SoftBody addEllipsoid(const ofVec3f& center, const ofVec3f& radius, int res = 10);
 
 	btSoftBody* setupSoftBody(btSoftBody *body);
 	void disposeSoftBody(btSoftBody *body);

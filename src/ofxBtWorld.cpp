@@ -2,7 +2,6 @@
 
 #include "ofxBtRender.h"
 #include "ofxBtRigidBody.h"
-#include "ofxBtUserData.h"
 
 using namespace ofxBt;
 
@@ -62,60 +61,60 @@ void World::draw()
 	m_dynamicsWorld->debugDrawWorld();
 }
 
-btRigidBody* World::addBox(const ofVec3f& size, const ofVec3f& pos, const ofVec3f& rot)
+RigidBody World::addBox(const ofVec3f& size, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btBoxShape(toBt(size * 0.5));
 	return setupRigidBody(shape, pos, rot);
 }
 
-btRigidBody* World::addSphere(const float size, const ofVec3f& pos, const ofVec3f& rot)
+RigidBody World::addSphere(const float size, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btSphereShape(size);
 	return setupRigidBody(shape, pos, rot);
 }
 
-btRigidBody* World::addCylinder(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
+RigidBody World::addCylinder(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btCylinderShape(btVector3(radius, height, radius));
 	return setupRigidBody(shape, pos, rot);
 }
 
-btRigidBody* World::addCapsule(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
+RigidBody World::addCapsule(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btCapsuleShape(radius, height);
 	return setupRigidBody(shape, pos, rot);
 }
 
-btRigidBody* World::addCone(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
+RigidBody World::addCone(const float radius, const float height, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btConeShape(radius, height);
 	return setupRigidBody(shape, pos, rot);
 }
 
-btRigidBody* World::addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot)
+RigidBody World::addPlane(const ofVec3f& up, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = new btStaticPlaneShape(toBt(up), 0);
 	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot, 0);
 	return rigid;
 }
 
-btRigidBody* World::addMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot)
+RigidBody World::addMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = convertToCollisionShape(mesh, false, getMargin());
 	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot);
 	return rigid;
 }
 
-btRigidBody* World::addStaticMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot)
+RigidBody World::addStaticMesh(const ofMesh &mesh, const ofVec3f& pos, const ofVec3f& rot)
 {
 	btCollisionShape *shape = convertToCollisionShape(mesh, true, getMargin());
 	ofxBt::RigidBody rigid = setupRigidBody(shape, pos, rot, 0);
 	return rigid;
 }
 
-vector<btRigidBody*> World::addWorldBox(const ofVec3f &leftTopFar, const ofVec3f& rightBottomNear)
+vector<RigidBody> World::addWorldBox(const ofVec3f &leftTopFar, const ofVec3f& rightBottomNear)
 {
-	vector<btRigidBody*> result;
+	vector<RigidBody> result;
 	
 	result.push_back(addPlane(ofVec3f(-1, 0, 0), ofVec3f(rightBottomNear.x, 0, 0)));
 	result.push_back(addPlane(ofVec3f(1, 0, 0), ofVec3f(leftTopFar.x, 0, 0)));
@@ -146,8 +145,6 @@ btRigidBody* World::setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, 
 	btRigidBody::btRigidBodyConstructionInfo info(mass, ms, shape, inertia);
 	RigidBody rigid = new btRigidBody(info);
 	
-	rigid->setUserPointer(new UserData(rigid));
-	
 	assert(rigid);
 	
 	rigid.setProperty(0.4, 0.75, 0.25, 0.25);
@@ -160,9 +157,10 @@ btRigidBody* World::setupRigidBody(btCollisionShape* shape, const ofVec3f& pos, 
 
 void World::disposeRigidBody(btRigidBody* body)
 {
-	if (UserData *user_data = (UserData*)body->getUserPointer())
+	if (ICollisionCallbackDispatcher *user_data = (ICollisionCallbackDispatcher*)body->getUserPointer())
 	{
 		delete user_data;
+		body->setUserPointer(NULL);
 	}
 	
 	if (body->getCollisionShape())
@@ -213,7 +211,8 @@ bool World::ContactProcessedCallback(btManifoldPoint& manifold, void* object0, v
 	// NOTICE: maybe this operation is not threadsafe
 	if (!current_dynamics_world) return NULL;
 	
-	if (fabs(manifold.m_distance1) > current_dynamics_world->getMargin() * 0.5)
+	const float collision_threshold = current_dynamics_world->getMargin() * 0.5;
+	if (fabs(manifold.m_distance1) > collision_threshold)
 	{
 		btRigidBody *RB0 = btRigidBody::upcast((btCollisionObject*)object0);
 		btRigidBody *RB1 = btRigidBody::upcast((btCollisionObject*)object1);
@@ -223,6 +222,12 @@ bool World::ContactProcessedCallback(btManifoldPoint& manifold, void* object0, v
 			CollisionEventArg e = {RB0, RB1};
 			ofNotifyEvent(current_dynamics_world->collisionEvent, e);
 		}
+		
+		ICollisionCallbackDispatcher *o0 = (ICollisionCallbackDispatcher*)RB0->getUserPointer();
+		ICollisionCallbackDispatcher *o1 = (ICollisionCallbackDispatcher*)RB1->getUserPointer();
+		
+		if (o0) (*o0)((btCollisionObject*)object1);
+		if (o1) (*o1)((btCollisionObject*)object0);
 	}
 	
 	return true;
