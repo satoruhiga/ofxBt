@@ -2,7 +2,9 @@
 
 #include "ofMain.h"
 
+#pragma managed(push, off)
 #include "BulletSoftBody/btSoftBody.h"
+#pragma managed(pop)
 
 #include "ofxBtHelper.h"
 #include "ofxBtCollisionObject.h"

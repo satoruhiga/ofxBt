@@ -2,7 +2,9 @@
 
 #include "ofMain.h"
 
+#pragma managed(push, off)
 #include "btBulletDynamicsCommon.h"
+#pragma managed(pop)
 
 template <typename T1, typename T2>
 const T2& toOF(const T1& o1, T2& o2);

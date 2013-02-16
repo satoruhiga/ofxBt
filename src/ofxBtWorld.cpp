@@ -3,6 +3,8 @@
 #include "ofxBtRender.h"
 #include "ofxBtRigidBody.h"
 
+#include <assert.h>
+
 using namespace ofxBt;
 
 extern ContactProcessedCallback gContactProcessedCallback;

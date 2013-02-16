@@ -2,10 +2,12 @@
 
 #include "ofxBtWorld.h"
 
+#pragma managed(push, off)
 #include "BulletSoftBody/btSoftBody.h"
 #include "BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.h"
 #include "BulletSoftBody/btSoftRigidDynamicsWorld.h"
 #include "BulletSoftBody/btSoftBodyHelpers.h"
+#pragma managed(pop)
 
 #include "ofxBtSoftBody.h"
 

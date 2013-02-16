@@ -1,6 +1,8 @@
 #include "ofxBtHelper.h"
 
+#pragma managed(push, off)
 #include "btShapeHull.h"
+#pragma managed(pop)
 
 btCollisionShape* ofxBt::convertToCollisionShape(const ofMesh &mesh, bool is_static_shape, float margin)
 {

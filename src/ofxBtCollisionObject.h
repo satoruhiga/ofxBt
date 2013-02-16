@@ -1,6 +1,8 @@
 #pragma once
 
+#pragma managed(push, off)
 #include "btBulletDynamicsCommon.h"
+#pragma managed(pop)
 
 namespace ofxBt
 {
