@@ -77,6 +77,11 @@ public:
 		return getRotate().getEuler();
 	}
 	
+	inline void setTransform(const ofMatrix4x4& m)
+	{
+		object->getWorldTransform().setFromOpenGLMatrix(m.getPtr());
+	}
+	
 	//
 	
 	inline void setKinematic(bool v)
