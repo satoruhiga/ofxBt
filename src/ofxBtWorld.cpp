@@ -228,17 +228,17 @@ bool World::ContactProcessedCallback(btManifoldPoint& manifold, void* object0, v
 		btRigidBody *RB0 = btRigidBody::upcast((btCollisionObject*)object0);
 		btRigidBody *RB1 = btRigidBody::upcast((btCollisionObject*)object1);
 
-		if (RB0 && RB1)
+		if (RB0 != NULL && RB1 != NULL)
 		{
 			CollisionEventArg e = {RB0, RB1};
 			ofNotifyEvent(current_dynamics_world->collisionEvent, e);
+			
+			ICollisionCallbackDispatcher *o0 = (ICollisionCallbackDispatcher*)RB0->getUserPointer();
+			ICollisionCallbackDispatcher *o1 = (ICollisionCallbackDispatcher*)RB1->getUserPointer();
+			
+			if (o0) (*o0)((btCollisionObject*)object1);
+			if (o1) (*o1)((btCollisionObject*)object0);
 		}
-		
-		ICollisionCallbackDispatcher *o0 = (ICollisionCallbackDispatcher*)RB0->getUserPointer();
-		ICollisionCallbackDispatcher *o1 = (ICollisionCallbackDispatcher*)RB1->getUserPointer();
-		
-		if (o0) (*o0)((btCollisionObject*)object1);
-		if (o1) (*o1)((btCollisionObject*)object0);
 	}
 	
 	return true;
