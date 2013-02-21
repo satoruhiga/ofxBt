@@ -23,7 +23,11 @@ void SoftBodyWorld::setup(ofVec3f gravity, float world_scale)
 
 void SoftBodyWorld::update()
 {
+	prepareUpdate();
+	
 	m_dynamicsWorld->stepSimulation(1.f / 60.f, 10, 1. / 240.);
+	
+	postUpdate();
 }
 
 void SoftBodyWorld::clear()

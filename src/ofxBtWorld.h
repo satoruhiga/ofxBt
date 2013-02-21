@@ -58,8 +58,6 @@ public:
 	void removeRigidBody(btRigidBody* body);
 	
 	//
-	
-	
 
 protected:
 	
@@ -78,6 +76,9 @@ protected:
 	vector<btRigidBody*> rigidBodies;
 	
 	inline float getMargin() { return 0.04 * world_scale; }
+	
+	void prepareUpdate();
+	void postUpdate();
 	
 private:
 	

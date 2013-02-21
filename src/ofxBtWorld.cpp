@@ -49,12 +49,21 @@ void World::clear()
 
 void World::update()
 {
-	current_dynamics_world = this;
-	
-	gContactProcessedCallback = ContactProcessedCallback;
+	prepareUpdate();
 	
 	m_dynamicsWorld->stepSimulation(1.f / 60.f, 10);
 	
+	postUpdate();
+}
+
+void World::prepareUpdate()
+{
+	current_dynamics_world = this;
+	gContactProcessedCallback = ContactProcessedCallback;
+}
+
+void World::postUpdate()
+{
 	gContactProcessedCallback = NULL;
 }
 
